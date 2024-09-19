@@ -4,6 +4,24 @@ Changelog
 
 (unreleased)
 ------------
+- Adding docker. [jkobject]
+- Better reqs and lamin update. [jkobject]
+- Add ruff and uv. [jkobject]
+- Work in progress. [jkobject]
+- Work on multiple updates. [jkobject]
+- Merge remote-tracking branch 'origin/main' into dev. [jkobject]
+- Better tests. [jkobject]
+- Should be good now. [jkobject]
+- Error. [jkobject]
+- Trying precising the attenion type. [jkobject]
+- Better tests. [jkobject]
+- Merge branch 'main' into dev. [maestro-jk]
+- Merge branch 'main' into dev. [jkobject]
+
+
+1.1.3 (2024-09-04)
+------------------
+- Release: version 1.1.3 🚀 [jkobject]
 - Ready now. [jkobject]
 
 
