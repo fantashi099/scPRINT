@@ -56,6 +56,10 @@ scPRINT can be used to perform the following analyses:
     - [where to find the gene embeddings?](#where-to-find-the-gene-embeddings)
   - [Documentation](#documentation)
   - [Model Weights](#model-weights)
+  - [Docker](#docker)
+    - [Building the Docker Image](#building-the-docker-image)
+    - [Pulling the Docker Image from Docker Hub](#pulling-the-docker-image-from-docker-hub)
+    - [Running the Docker Container](#running-the-docker-container)
   - [Development](#development)
   - [Work in progress (PR welcomed):](#work-in-progress-pr-welcomed)
 
@@ -264,6 +268,41 @@ For more information on usage please see the documentation in [https://www.jkobj
 
 Model weights are available on [hugging face](https://huggingface.co/jkobject/scPRINT/).
 
+## Docker
+
+By using the `scPRINT Docker image`, you can bypass the complexities of manual package installation, ensuring a consistent deployment environment. Included in this repository is a Dockerfile that lets you craft a container for the project; you have the choice to either build this image on your own or conveniently pull it from Docker Hub.
+
+Make sure that you have the `docker` command line interface installed on your system.
+
+A recommended way to install docker with the correct nvidia drivers on linux is to use this [script](https://gist.github.com/xueerchen1990/baad7baa545cb547e8633bc9e5b84786)
+
+### Building the Docker Image
+
+To build the Docker image from the provided `Dockerfile`, run the following command from the root directory of this repository:
+
+```bash
+docker build -t scprint:latest -f Dockerfile .
+```
+
+### Pulling the Docker Image from Docker Hub
+
+If you don't want to build the image yourself, you can pull it directly from Docker Hub:
+
+```bash
+docker pull jkobject/scprint:1.1.3
+docker tag jkobject/scprint:1.1.3 scprint:latest
+```
+
+### Running the Docker Container
+
+Once you have the image (either by building it or pulling it), you can start a container with:
+
+```bash
+docker run --gpus all --rm -it scprint:latest bash
+```
+
+Please note: When running the Docker container, ensure you mount any necessary folders using the -v option to access them inside the container.
+`
 ## Development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
