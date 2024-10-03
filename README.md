@@ -11,6 +11,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/cantinilab/scPRINT)](https://img.shields.io/github/issues/cantinilab/scPRINT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![DOI](https://zenodo.org/badge/391909874.svg)](https://doi.org/10.1101/2024.07.29.605556)
+[![hugging face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/jkobject/scPRINT)
 
 ![logo](docs/logo.png)
 
