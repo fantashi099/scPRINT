@@ -152,8 +152,9 @@ class Embedder:
             model.on_predict_epoch_start()
             device = model.device.type
             model.doplot = self.doplot
-            with torch.no_grad(), torch.autocast(
-                device_type=device, dtype=torch.float16
+            with (
+                torch.no_grad(),
+                torch.autocast(device_type=device, dtype=torch.float16),
             ):
                 for batch in tqdm(dataloader):
                     gene_pos, expression, depth = (
@@ -227,8 +228,14 @@ class Embedder:
         else:
             pass
         pred_adata.obs.index = adata.obs.index
-        adata.obsm["scprint_umap"] = pred_adata.obsm["X_umap"]
-        # adata.obsm["scprint_leiden"] = pred_adata.obsm["leiden"]
+        try:
+            adata.obsm["scprint_umap"] = pred_adata.obsm["X_umap"]
+        except:
+            print("too few cells to embed into a umap")
+        try:
+            adata.obsm["scprint_leiden"] = pred_adata.obsm["leiden"]
+        except:
+            print("too few cells to compute a clustering")
         adata.obsm["scprint"] = pred_adata.X
         pred_adata.obs.index = adata.obs.index
         adata.obs = pd.concat([adata.obs, pred_adata.obs], axis=1)

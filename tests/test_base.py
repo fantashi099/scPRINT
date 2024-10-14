@@ -48,7 +48,7 @@ def test_base():
             transformer="normal",
         )
         dn = Denoiser(
-            plot_corr_size=10,
+            max_cells=10,
             batch_size=2,
             num_workers=1,
             max_len=300,

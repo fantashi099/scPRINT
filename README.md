@@ -73,9 +73,7 @@ If you want to be using flashattention2, know that it only supports triton 2.0 M
 
 ### lamin.ai
 
-To use scPRINT, I need you to use lamin.ai. This is needed to load biological informations like genes, cell types, organisms etc...
-
-To do so, you will need to connect with google or github to [lamin.ai](https://lamin.ai/login), then be sure to connect before running anything (or before starting a notebook): `lamin login <email> --key <API-key>`. Follow the instructions on [their website](https://docs.lamin.ai/guide).
+To use scPRINT, you will need to use [lamin.ai](https://lamin.ai/). This is needed to load biological informations like genes, cell types, organisms etc...
 
 ### install
 
@@ -89,8 +87,7 @@ pip install scprint[dev] # for the dev dependencies (building etc..) OR
 pip install scprint[flash] # to use flashattention2 with triton: only if you have a compatible gpu (e.g. not available for apple GPUs for now, see https://github.com/triton-lang/triton?tab=readme-ov-file#compatibility)
 #OR pip install scPRINT[dev,flash]
 
-lamin login <email> --key <API-key>
-lamin init --storage <folder-name-where-lamin-data-will-be-stored> --schema bionty
+lamin init --storage ./testdb --name test --schema bionty
 ```
 
 if you start with lamin and had to do a `lamin init`, you will also need to populate your ontologies. This is because scPRINT is using ontologies to define its cell types, diseases, sexes, ethnicities, etc.

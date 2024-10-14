@@ -24,3 +24,9 @@ def go_to_tmpdir(request):
     # Chdir only for the duration of the test.
     with tmpdir.as_cwd():
         yield
+
+records = bt.Gene.from_values(
+    names,
+    field="ensembl_gene_id",
+    organism=organism,
+)

@@ -30,7 +30,7 @@ class Denoiser:
         max_len: int = 5_000,
         precision: str = "16-mixed",
         how: str = "most var",
-        plot_corr_size: int = 10_000,
+        max_cells: int = 500_000,
         doplot: bool = False,
         predict_depth_mult: int = 4,
         downsample: Optional[float] = None,
@@ -46,7 +46,7 @@ class Denoiser:
             max_len (int, optional): Maximum number of genes to consider. Defaults to 5000.
             precision (str, optional): Precision type for computations. Defaults to "16-mixed".
             how (str, optional): Method to select genes. Options are "most var". Defaults to "most var".
-            plot_corr_size (int, optional): Number of cells to use for plotting correlation. Defaults to 10000.
+            max_cells (int, optional): Number of cells to use for plotting correlation. Defaults to 10000.
             doplot (bool, optional): Whether to generate plots. Defaults to False.
             predict_depth_mult (int, optional): Multiplier for prediction depth. Defaults to 4.
             downsample (Optional[float], optional): Fraction of data to downsample. Defaults to None.
@@ -56,7 +56,7 @@ class Denoiser:
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.max_len = max_len
-        self.plot_corr_size = plot_corr_size
+        self.max_cells = max_cells
         self.doplot = doplot
         self.predict_depth_mult = predict_depth_mult
         self.how = how
@@ -80,9 +80,9 @@ class Denoiser:
         if os.path.exists("collator_output.txt"):
             os.remove("collator_output.txt")
         random_indices = None
-        if self.plot_corr_size < adata.shape[0]:
+        if self.max_cells < adata.shape[0]:
             random_indices = np.random.randint(
-                low=0, high=adata.shape[0], size=self.plot_corr_size
+                low=0, high=adata.shape[0], size=self.max_cells
             )
             adataset = SimpleAnnDataset(
                 adata[random_indices], obs_to_output=["organism_ontology_term_id"]
@@ -192,16 +192,16 @@ class Denoiser:
             # metrics = {
             #    "reco2noisy": np.mean(
             #        corr_coef[
-            #            self.plot_corr_size : self.plot_corr_size * 2, : self.plot_corr_size
+            #            self.max_cells : self.max_cells * 2, : self.max_cells
             #        ].diagonal()
             #    ),
             #    "reco2full": np.mean(
-            #        corr_coef[self.plot_corr_size * 2 :, : self.plot_corr_size].diagonal()
+            #        corr_coef[self.max_cells * 2 :, : self.max_cells].diagonal()
             #    ),
             #    "noisy2full": np.mean(
             #        corr_coef[
-            #            self.plot_corr_size * 2 :,
-            #            self.plot_corr_size : self.plot_corr_size * 2,
+            #            self.max_cells * 2 :,
+            #            self.max_cells : self.max_cells * 2,
             #        ].diagonal()
             #    ),
             # }
@@ -249,7 +249,7 @@ def default_benchmark(
         model,
         batch_size=40,
         max_len=max_len,
-        plot_corr_size=10_000,
+        max_cells=10_000,
         doplot=False,
         num_workers=8,
         predict_depth_mult=10,
@@ -288,7 +288,7 @@ def open_benchmark(model):
     denoise = Denoiser(
         batch_size=32,
         max_len=15_800,
-        plot_corr_size=10_000,
+        max_cells=10_000,
         doplot=False,
         predict_depth_mult=1.2,
         downsample=None,

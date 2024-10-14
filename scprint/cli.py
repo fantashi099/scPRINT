@@ -233,7 +233,7 @@ class MyCLI(LightningCLI):
                     if random_indices is not None
                     else range(adata.shape[0])
                 )
-                for idx in elems[: dn.plot_corr_size]:
+                for idx in elems[: dn.max_cells]:
                     adata.X[
                         idx,
                         adata.var.index.get_indexer(
