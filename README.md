@@ -1,15 +1,17 @@
+> ℹ️ main place where scprint is built and maintained
 
 # scPRINT: Large Cell Model for scRNAseq data
 
-[![codecov](https://codecov.io/gh/jkobject/scPRINT/branch/main/graph/badge.svg?token=GRnnData_token_here)](https://codecov.io/gh/jkobject/scPRINT)
-[![CI](https://github.com/jkobject/scPRINT/actions/workflows/main.yml/badge.svg)](https://github.com/jkobject/scPRINT/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/cantinilab/scPRINT/branch/main/graph/badge.svg?token=GRnnData_token_here)](https://codecov.io/gh/cantinilab/scPRINT)
+[![CI](https://github.com/cantinilab/scPRINT/actions/workflows/main.yml/badge.svg)](https://github.com/cantinilab/scPRINT/actions/workflows/main.yml)
 [![PyPI version](https://badge.fury.io/py/scprint.svg)](https://badge.fury.io/py/scprint)
 [![Downloads](https://pepy.tech/badge/scprint)](https://pepy.tech/project/scprint)
 [![Downloads](https://pepy.tech/badge/scprint/month)](https://pepy.tech/project/scprint)
 [![Downloads](https://pepy.tech/badge/scprint/week)](https://pepy.tech/project/scprint)
-[![GitHub issues](https://img.shields.io/github/issues/jkobject/scPRINT)](https://img.shields.io/github/issues/jkobject/scPRINT)
+[![GitHub issues](https://img.shields.io/github/issues/cantinilab/scPRINT)](https://img.shields.io/github/issues/cantinilab/scPRINT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![DOI](https://zenodo.org/badge/391909874.svg)](https://doi.org/10.1101/2024.07.29.605556)
+[![hugging face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/jkobject/scPRINT)
 
 ![logo](docs/logo.png)
 
@@ -132,7 +134,7 @@ I was able to test it with nvidia 11.7, 11.8, 12.2.
 If you want to use the latest version of scPRINT and work on the code yourself use `git clone` and `pip -e` instead of `pip install`.
 
 ```bash
-git clone https://github.com/jkobject/scPRINT
+git clone https://github.com/cantinilab/scPRINT
 git clone https://github.com/jkobject/scDataLoader
 git clone https://github.com/cantinilab/GRnnData
 git clone https://github.com/jkobject/benGRN
@@ -189,7 +191,7 @@ model = scPrint.load_from_checkpoint(
 
 ### Simple tests:
 
-An instalation of scPRINT and a simple test of the denoiser is performed during each commit to the main branch with a [Github action](https://github.com/jkobject/scPRINT/actions) and [pytest workflow](.github/workflows/main.yml). It also provides an expected runtime for the installation and run of scPRINT.
+An instalation of scPRINT and a simple test of the denoiser is performed during each commit to the main branch with a [Github action](https://github.com/cantinilab/scPRINT/actions) and [pytest workflow](.github/workflows/main.yml). It also provides an expected runtime for the installation and run of scPRINT.
 
 We now explore the different usages of scPRINT:
 
