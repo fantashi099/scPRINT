@@ -13,35 +13,28 @@ help:             ## Show the help.
 .PHONY: show
 show:             ## Show the current environment.
 	@echo "Current environment:"
-	@if [ "$(USING_POETRY)" ]; then poetry env info && exit; fi
 	@echo "Running using $(ENV_PREFIX)"
 	@$(ENV_PREFIX)python -V
 	@$(ENV_PREFIX)python -m site
 
 .PHONY: install
 install:          ## Install the project in dev mode.
-	@if [ "$(USING_POETRY)" ]; then poetry install && exit; fi
-	@echo "Don't forget to run 'make virtualenv' if you got errors."
-	$(ENV_PREFIX)pip install -e '.[dev]'
+	$(ENV_PREFIX)uv sync --all-extras --dev
 
 .PHONY: fmt
 fmt:              ## Format code using black & isort.
-	$(ENV_PREFIX)ruff check --fix scprint/
-	$(ENV_PREFIX)ruff check --fix tests/
-	$(ENV_PREFIX)ruff format tests/
-	$(ENV_PREFIX)ruff format scprint/
+	$(ENV_PREFIX)uv run ruff format scprint/ tests/
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
 #most are due to flashattention...
-	$(ENV_PREFIX)ruff check --fix scprint/
-	$(ENV_PREFIX)ruff check --fix tests/
+	$(ENV_PREFIX)uv run ruff check --fix scprint/ tests/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=scprint -l --tb=short --maxfail=1 tests/
-	$(ENV_PREFIX)coverage xml
-	$(ENV_PREFIX)coverage html
+	$(ENV_PREFIX)uv run pytest -v --cov-config .coveragerc --cov=scprint -l --tb=short --maxfail=1 tests/
+	$(ENV_PREFIX)uv run coverage xml
+	$(ENV_PREFIX)uv run coverage html
 
 .PHONY: watch
 watch:            ## Run tests on every change.
@@ -65,13 +58,11 @@ clean:            ## Clean unused files.
 
 .PHONY: virtualenv
 virtualenv:       ## Create a virtual environment.
-	@if [ "$(USING_POETRY)" ]; then poetry install && exit; fi
 	@echo "creating virtualenv ..."
 	@rm -rf .venv
-	@python3 -m venv .venv
-	@./.venv/bin/pip install -U pip
-	@./.venv/bin/pip install -e .[test]
-	@echo
+	@uv venv
+	@source .venv/bin/activate
+	@make install
 	@echo "!!! Please run 'source .venv/bin/activate' to enable the environment !!!"
 
 .PHONY: release
@@ -95,24 +86,6 @@ docs:             ## Build the documentation.
 	@echo "building documentation ..."
 	@$(ENV_PREFIX)mkdocs build
 	URL="site/index.html"; xdg-open $$URL || sensible-browser $$URL || x-www-browser $$URL || gnome-open $$URL || open $$URL
-
-.PHONY: switch-to-poetry
-switch-to-poetry: ## Switch to poetry package manager.
-	@echo "Switching to poetry ..."
-	@if ! poetry --version > /dev/null; then echo 'poetry is required, install from https://python-poetry.org/'; exit 1; fi
-	@rm -rf .venv
-	@poetry init --no-interaction --name=a_flask_test --author=rochacbruno
-	@echo "" >> pyproject.toml
-	@echo "[tool.poetry.scripts]" >> pyproject.toml
-	@echo "scprint = 'scprint.__main__:main'" >> pyproject.toml
-	@cat requirements.txt | while read in; do poetry add --no-interaction "$${in}"; done
-	@cat requirements-test.txt | while read in; do poetry add --no-interaction "$${in}" --dev; done
-	@poetry install --no-interaction
-	@mkdir -p .github/backup
-	@mv requirements* .github/backup
-	@mv setup.py .github/backup
-	@echo "You have switched to https://python-poetry.org/ package manager."
-	@echo "Please run 'poetry shell' or 'poetry run scprint'"
 
 .PHONY: init
 init:             ## Initialize the project based on an application template.

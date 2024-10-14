@@ -445,15 +445,15 @@ def translate(
         dict: A dictionary with the translated values.
     """
     if t == "cell_type_ontology_term_id":
-        obj = bt.CellType.df().set_index("ontology_id")
+        obj = bt.CellType.filter().df().set_index("ontology_id")
     elif t == "assay_ontology_term_id":
-        obj = bt.ExperimentalFactor.df().set_index("ontology_id")
+        obj = bt.ExperimentalFactor.filter().df().set_index("ontology_id")
     elif t == "tissue_ontology_term_id":
-        obj = bt.Tissue.df().set_index("ontology_id")
+        obj = bt.Tissue.filter().df().set_index("ontology_id")
     elif t == "disease_ontology_term_id":
-        obj = bt.Disease.df().set_index("ontology_id")
+        obj = bt.Disease.filter().df().set_index("ontology_id")
     elif t == "self_reported_ethnicity_ontology_term_id":
-        obj = bt.Ethnicity.df().set_index("ontology_id")
+        obj = bt.Ethnicity.filter().df().set_index("ontology_id")
     else:
         return None
     if type(val) is str:

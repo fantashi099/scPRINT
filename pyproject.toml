@@ -1,112 +1,98 @@
-[tool.poetry]
-name = "scprint"
-version = "1.1.4"
-license = "MIT"
-description = "scPRINT is a Large Cell Model for Gene Network Inference, Denoising and more from scRNAseq data"
-authors = ["jeremie kalfon"]
-readme = ["README.md", "LICENSE"]
-repository = "https://github.com/jkobject/scPRINT"
-keywords = ["scRNAseq","transformer","GRN","gene regulatory network","scPRINT","large cell model","foundation model"]
-
 [project]
 name = "scprint"
 version = "1.1.4"
 description = "scPRINT is a Large Cell Model for Gene Network Inference, Denoising and more from scRNAseq data"
-authors = ["jeremie kalfon"]
-readme = ["README.md", "LICENSE"]
-repository = "https://github.com/jkobject/scPRINT"
-keywords = ["scRNAseq","transformer","GRN","gene regulatory network","scPRINT","large cell model","foundation model"]
+authors = [
+    {name = "jeremie kalfon", email = "jkobject@gmail.com"}
+]
+license = "MIT"
+readme = "README.md"
 requires-python = ">=3.10"
+keywords = ["scRNAseq", "transformer", "GRN", "gene regulatory network", "scPRINT", "large cell model", "foundation model"]
+dependencies = [
+    "lamindb==0.76.12",
+    "cellxgene-census>=0.1.0",
+    "torch==2.2.0",
+    "lightning>=2.0.0",
+    "anndata>=0.9.1",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+    "ipykernel>=6.20.0",
+    "torchdata>=0.5.0",
+    "biomart>=0.9.0",
+    "pandas>=2.0.0",
+    "leidenalg>=0.10.0",
+    "django>=4.0.0",
+    "scikit-misc>=0.5.0",
+    "scDataLoader>=1.1.3",
+    "GRnnData>=0.1.0",
+    "BenGRN>=0.1.0",
+    "gseapy>=0.10.0",
+    "owlready2>=0.36",
+    "huggingface_hub>=0.10.0",
+    "scib>=1.0.0",
+    "scib-metrics>=0.1.0",
+    "scikit-learn>=1.4.0",
+    "scipy>=1.7.0",
+    "numpy>=1.21.0",
+    "attridict>=0.0.9",
+    "gget>=0.2.0",
+    "hdbscan>=0.8.36",
+    "fair-esm>=0.5.0",
+    "hydra-core>=1.1.0",
+    "pynndescent>=0.5.11",
+    "einops>=0.3.0",
+    "rich>=10.0.0",
+    "typeshed-client>=2.0.0",
+    "jsonargparse>=4.0.0",
+    "docstring-parser>=0.15",
+    "wandb>=0.12.0",
+    "louvain>=0.8.2",
+    "zarr>=2.10.0",
+    "tensorly>=0.6.0",
+    "torchvision>=0.13.0",
+    "torchaudio>=0.12.0",
+    "torchtext>=0.13.0",
+    "numba>=0.56.0",
+    "sparse>=0.15.4",
+    "bio>=1.7.1",
+]
 
-[tool.ruff]
-# Set the maximum line length to 88.
-line-length = 88
-
-[tool.ruff.lint]
-select = ["E", "F", "I"]
-ignore = ["E501", "E203", "E266", "E265", "F401", "F403", "E722", "E741", "E731",]
-
-[tool.poetry.dependencies]
-python = "3.10.*"
-lamindb = "0.76.3"
-bionty = "0.49.0"
-cellxgene-census = "*"
-torch = "2.2.0"
-lightning = "*"
-anndata = "*"
-matplotlib = "*"
-seaborn = "*"
-ipykernel = "*"
-torchdata = "*"
-biomart = "*"
-pandas = ">=2.0.0"
-leidenalg = "*"
-decoupler = "*"
-django = "*"
-scikit-misc = "*"
-scDataLoader = "*"
-GRnnData = "*"
-BenGRN = "*"
-gseapy = "*"
-owlready2 = "*"
-huggingface_hub = "*"
-scib = "*"
-scib-metrics = "*"
-scikit-learn = "*"
-scipy = "*"
-numpy = "*"
-Bio = "*"
-attridict = "*"
-gget = "*"
-fair-esm = "*"
-hydra-core = "*"
-pynndescent = ">=0.5.11"
-einops = "*"
-rich = "*"
-typeshed-client = "*"
-jsonargparse = "*"
-docstring-parser = "*"
-wandb = "*"
-wandb-core = "*"
-louvain = "*"
-hdbscan = "*"
-zarr = "*"
-tensorly = "*"
-torchvision = "*"
-torchaudio = "*"
-torchtext = "*"
-triton = {version = "2.2.0", optional = true}
-pytorch-fast-transformers = { version = "*", optional = true }
-pytest = { version = "^7.4.3", optional = true }
-coverage = { version = "^7.3.2", optional = true }
-ruff = { version = "^0.6.4", optional = true }
-pytest-cov = { version = "^4.1.0", optional = true }
-gitchangelog = { version = "^3.0.4", optional = true }
-mkdocs = { version = "^1.5.3", optional = true }
-
-[tool.poetry.extras]
+[project.optional-dependencies]
 dev = [
-    "pytest",
-    "coverage",
-    "ruff",
-    "pytest-cov",
-    "gitchangelog",
-    "mkdocs",
-    "mkdocs-git-revision-date-localized-plugin",
-    "mkdocstrings",
-    "mkdocs-git-authors-plugin",
-    "mkdocs-jupyter",
-    "mkdocstrings-python"
+    "pytest>=7.4.3",
+    "coverage>=7.3.2",
+    "ruff>=0.6.4",
+    "pytest-cov>=4.1.0",
+    "gitchangelog>=3.0.4",
+    "mkdocs>=1.5.3",
+    "mkdocs-git-revision-date-localized-plugin>=1.0.0",
+    "mkdocstrings>=0.22.0",
+    "mkdocs-git-authors-plugin>=0.4.0",
+    "mkdocs-jupyter>=0.2.0",
+    "mkdocstrings-python>=0.10.0"
 ]
 
 flash = [
-    "triton",
-    "pytorch-fast-transformers"
+    "triton==2.2.0",
 ]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.urls]
+repository = "https://github.com/jkobject/scPRINT"
 
-[tool.poetry.scripts]
-scprint = 'scprint.__main__:main'
+[tool.ruff]
+line-length = 88
+
+[tool.uv.pip]
+resolution = "lowest-direct"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "E203", "E266", "E265", "F401", "F403", "E722", "E741", "E731", "E721"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+scprint = "scprint.__main__:main"
