@@ -76,7 +76,6 @@ class Embedder:
         self.precision = precision
         self.doplot = doplot
         self.doclass = doclass
-        self.trainer = Trainer(precision=precision, devices=devices)
         self.output_expression = output_expression
         # subset_hvg=1000, use_layer='counts', is_symbol=True,force_preprocess=True, skip_validate=True)
 
