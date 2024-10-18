@@ -75,6 +75,7 @@ class Embedder:
         self.plot_corr_size = plot_corr_size
         self.precision = precision
         self.doplot = doplot
+        self.dtype = dtype
         self.doclass = doclass
         self.output_expression = output_expression
         # subset_hvg=1000, use_layer='counts', is_symbol=True,force_preprocess=True, skip_validate=True)
@@ -153,7 +154,7 @@ class Embedder:
             model.doplot = self.doplot
             with (
                 torch.no_grad(),
-                torch.autocast(device_type=device, dtype=torch.float16),
+                torch.autocast(device_type=device, dtype=self.dtype),
             ):
                 for batch in tqdm(dataloader):
                     gene_pos, expression, depth = (
