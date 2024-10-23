@@ -44,7 +44,6 @@ class GNInfer:
         num_genes: int = 3000,
         precision: str = "16-mixed",
         cell_type_col: str = "cell_type",
-        max_len: int = 3000,
         how: str = "random expr",  # random expr, most var within, most var across, given
         preprocess: str = "softmax",  # sinkhorn, softmax, none
         head_agg: str = "mean",  # mean, sum, none
@@ -60,6 +59,7 @@ class GNInfer:
         dtype: torch.dtype = torch.float16,
         devices: List[int] = [0],
         locname: str = "",
+        max_cells: int = 0,
     ):
         """
         GNInfer a class to infer gene regulatory networks from a dataset using a scPRINT model.
