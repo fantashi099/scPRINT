@@ -101,6 +101,7 @@ def test_base():
             num_genes=100,
             max_cells=10,
             doplot=False,
+            dtype=torch.float32,
         )
         grn_adata = grn_inferer(model, adata)
         assert "GRN" in grn_adata.varp, "GRN inference failed"
