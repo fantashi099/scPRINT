@@ -118,6 +118,8 @@ class GNInfer:
         self.curr_genes = None
         self.drop_unexpressed = drop_unexpressed
         self.precision = precision
+        if self.filtration != "none" and self.head_agg == "none":
+            raise ValueError("filtration must be 'none' when head_agg is 'none'")
 
     def __call__(self, model: torch.nn.Module, adata: AnnData, cell_type=None):
         """
@@ -310,28 +312,23 @@ class GNInfer:
                 )
             elif self.head_agg == "none":
                 attn = attn.detach().cpu().numpy()
-                attn[attn < 0.01] = 0
                 attn = attn.reshape(attn.shape[0], attn.shape[1], 1)
-                attn = sparse.COO.from_numpy(attn)
                 if attns is not None:
-                    attns = sparse.concat([attns, attn], axis=2)
+                    attns = np.concatenate([attns, attn], axis=2)
                 else:
                     attns = attn
             else:
                 raise ValueError("head_agg must be one of 'mean', 'max' or 'None'")
         if self.head_agg == "mean":
             attns = attns / Qs.shape[0]
-        if self.head_agg in ["max", "mean"]:
-            attns[attns < 0.01] = 0
-            attns = scipy.sparse.csr_matrix(attns)
         return attns
 
     def filter(self, adj, gt=None):
         if self.filtration == "thresh":
             adj[adj < (1 / adj.shape[-1])] = 0
-            # res = (adj != 0).sum()
-            # if res / adj.shape[0] ** 2 < 0.01:
-            #   adj = scipy.sparse.csr_matrix(adj)
+            res = (adj != 0).sum()
+            if res / adj.shape[0] ** 2 < 0.01:
+                adj = scipy.sparse.csr_matrix(adj)
         elif self.filtration == "none":
             pass
         elif self.filtration == "top-k":
