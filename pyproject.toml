@@ -70,7 +70,7 @@ dev = [
 ]
 
 flash = [
-    "triton==2.2.0",
+    "triton",
 ]
 
 [project.urls]
